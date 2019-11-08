@@ -2,43 +2,53 @@
 import os
 import csv
 
-csvpath = os.path.join('budget_data.csv')
-
-# Import Dependencies
-import pandas as pd
-# Store filepath in a variable
-budget_data = "budget_data.csv"
-
-# Read our Data file with the pandas library
-# Not every CSV requires an encoding, but be aware this can come up
-budget_data_df = pd.read_csv(budget_data, encoding="ISO-8859-1")
-
-# Find number of months
-unique_months = budget_data_df["Date"].unique()
-total_unique_months = len(unique_months)
-print (total_unique_months)
-
-#find total profit
-total_profit = budget_data_df["Profit/Losses"].sum()
-print(total_profit)
-#'${:}'.format(total_profit)
+budget_csv = os.path.join('budget_data.csv')
 
 
-prof_loss=budget_data_df["Profit/Losses"]
-print(prof_loss)
 
-difference_list = []
-#for i in prof_loss:
-    #difference_list.append(prof_loss.iloc[i].subtract(prof_loss.iloc[i+1]))
+# Open the CSV
+with open(budget_csv, newline='') as csvfile:
 
-#print(difference_list)
+    # CSV reader specifies delimiter and variable that holds contents
+    csvreader = csv.reader(csvfile, delimiter=',')
+
+    print(csvreader)
+
+    next(csvreader)
+
+    #create lists
+    dif_list=[]   
+    prof_loss=[]
+    #set count to 0
+    total=0
+    datecount=0
+    #loop through rows of csv
+    for rows in csvreader:
+        total += float(rows[1])
+        datecount += 1
+        prof_loss.append(rows[1])
+    #index prof_loss list
+    prof_loss_list= range(0,len(prof_loss)-1)
+
+    #find differences and add to list
+    for i in prof_loss_list:
+        dif_list.append(float(prof_loss[i+1])-float(prof_loss[i]))
+        
+    #find average of differences
+    avg_dif=sum(dif_list)/datecount
+    maximum = max(dif_list)
+    minimum = min(dif_list)
+    
+    print("Financial Analysis")
+    print("----------------------------")
+    print("Total Months: " + str(datecount)) 
+    print("Total: " + str(total))
+    print("Average Change: " + str(avg_dif))
+    print("Greatest Increase in Profits: " + str(maximum))
+    print("Greatest Decrease in Profits: " +str(minimum))
+
+    #print(prof_loss)
+    #print(dif_list)
 
 
-for i in (1,len(prof_loss)-1):
-    firstval=prof_loss[i]
-    nextval=prof_loss[i-1]
-    difference_list.append(firstval-nextval)
-print(difference_list)
-
-print(firstval)
-print(nextval)
+    
