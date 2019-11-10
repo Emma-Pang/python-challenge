@@ -51,6 +51,19 @@ with open(election_csv, newline='') as csvfile:
     winnerdict=dict(zip(candidatelist, canpercentlist))
     #find winner
     winner = max(winnerdict.keys(), key=(lambda k: winnerdict[k]))
+    print("Election Results")
+    print("----------------------")
+    print("Total Votes: " + str(votercount))
+    print("----------------------")
+    print(candidate[0] + ": " + "{:.2%}".format(candidatepercent[0]) + "(" + str(can0total)+ ")")
+    print(candidate[1] + ": " + "{:.2%}".format(candidatepercent[1]) + "(" + str(can1total)+ ")")
+    print(candidate[2] + ": " + "{:.2%}".format(candidatepercent[2]) + "(" + str(can2total)+ ")")
+    print(candidate[3] + ": " + "{:.2%}".format(candidatepercent[3]) + "(" + str(can3total)+ ")")
+    print("----------------------")
+    print("Winner:" + winner)
+    print("----------------------")
+
+
 
     print("Election Results" + "\n"+ 
         "----------------------" +"\n"+ 
