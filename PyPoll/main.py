@@ -4,8 +4,6 @@ import csv
 
 election_csv = os.path.join('election_data.csv')
 
-
-
 # Open the CSV
 with open(election_csv, newline='') as csvfile:
 
@@ -66,5 +64,3 @@ with open(election_csv, newline='') as csvfile:
         "Winner:" + winner +"\n"+
         "----------------------"
         ,  file=open('PyPoll.txt', 'w'))
-    #print(cand0)
-    #print(cand1)
